@@ -1,0 +1,95 @@
+Excelente\! Faltam apenas duas questões, e agora vamos para a Q9.
+
+**Q9. Escreva uma função em Java que recebe um array de inteiros e um valor inteiro x como parâmetros. A função deve encontrar o primeiro par de elementos consecutivos no array cuja soma seja igual a x. A função deve imprimir os índices dos elementos encontrados ou indicar se nenhum par foi encontrado.**
+
+**Exemplo 1: Array:, x: 12**  
+**Saída esperada: "Par encontrado: 7 (índice 2) + 5 (índice 3)"**
+
+**Exemplo 2: Array:, x: 10**  
+**Saída esperada: "Nenhum par consecutivo encontrado."**
+
+Aqui está o código Java para a Q9:
+
+``` java
+import java.util.Scanner;
+import java.util.Arrays; // Para usar Arrays.toString para imprimir o array
+
+public class Q9 {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Bem-vindo ao buscador de pares consecutivos!");
+
+        // --- Entrada do Array ---
+        System.out.print("Digite os elementos do array de inteiros, separados por espaço (ex: 2 4 7 5 9 8): ");
+        String linhaArray = scanner.nextLine();
+        String[] elementosStr = linhaArray.trim().split("\\s+"); // Divide a string por espaços
+
+        int[] arrayDeInteiros;
+        try {
+            arrayDeInteiros = new int[elementosStr.length];
+            for (int i = 0; i < elementosStr.length; i++) {
+                arrayDeInteiros[i] = Integer.parseInt(elementosStr[i]);
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Erro: Por favor, insira apenas números inteiros separados por espaço.");
+            scanner.close();
+            return;
+        }
+
+        // --- Entrada do Valor X ---
+        System.out.print("Digite o valor inteiro X que você deseja encontrar a soma: ");
+        int x = scanner.nextInt();
+
+        System.out.println("\nProcurando par consecutivo com soma " + x + " no array: " + Arrays.toString(arrayDeInteiros));
+
+        // Chama a função para encontrar o par
+        encontrarParConsecutivo(arrayDeInteiros, x);
+
+        scanner.close();
+    }
+
+    /**
+     * Encontra e imprime o primeiro par de elementos consecutivos em um array
+     * cuja soma seja igual a um valor x.
+     *
+     * @param arr O array de inteiros a ser pesquisado.
+     * @param x   O valor inteiro que a soma dos elementos deve ser igual.
+     */
+    public static void encontrarParConsecutivo(int[] arr, int x) {
+        // Percorre o array até o penúltimo elemento, pois precisamos de um par consecutivo
+        for (int i = 0; i < arr.length - 1; i++) {
+            // Verifica se a soma do elemento atual com o próximo é igual a x
+            if (arr[i] + arr[i+1] == x) {
+                System.out.println("Par encontrado: " + arr[i] + " (índice " + i + ") + " + arr[i+1] + " (índice " + (i+1) + ")");
+                return; // Retorna assim que o primeiro par é encontrado, conforme a requisição
+            }
+        }
+
+        // Se o loop terminar sem encontrar nenhum par
+        System.out.println("Nenhum par consecutivo encontrado.");
+    }
+}
+
+```
+
+**Comentários sobre a lógica e o código da Q9:**
+
+1.  **Função Dedicada (\`\`\`encontrarParConsecutivo\`\`\`):** Conforme solicitado, a lógica principal está encapsulada em uma função que recebe o array de inteiros e o valor `x`.
+2.  **Iteração para Pares Consecutivos:**
+      * O loop `for` itera de `i = 0` até `arr.length - 1`. A condição `i < arr.length - 1` é crucial porque, para verificar um par consecutivo (`arr[i]` e `arr[i+1]`), precisamos garantir que `i+1` ainda seja um índice válido no array. Se o loop fosse até `arr.length`, na última iteração `i+1` estaria fora dos limites do array.
+      * Dentro do loop, a soma de `arr[i]` e `arr[i+1]` é verificada.
+3.  **Impressão e Retorno:**
+      * Se um par cuja soma é igual a `x` for encontrado, a função imprime a mensagem no formato especificado (valor do elemento, índice) e usa `return;` para sair da função imediatamente. Isso garante que apenas o *primeiro* par seja reportado.
+      * Se o loop terminar sem encontrar nenhum par (ou seja, a condição `if` nunca foi verdadeira), a mensagem "Nenhum par consecutivo encontrado." é impressa.
+4.  **Entrada do Array (\`\`\`main\`\`\`):**
+      * A entrada do array é feita lendo uma linha inteira (`scanner.nextLine()`) que o usuário digita.
+      * `linhaArray.trim().split("\\s+")` é usado para dividir a string de entrada em um array de strings, usando um ou mais espaços (`\\s+`) como delimitador. `.trim()` remove espaços extras no início/fim da linha.
+      * Um loop tenta converter cada string para `int` e armazená-lo no `arrayDeInteiros`. Um bloco `try-catch` é usado para lidar com `NumberFormatException` caso o usuário digite algo que não seja um número.
+5.  **Entrada do Valor X:** O valor `x` é lido como um inteiro.
+6.  **Impressão do Array:** `Arrays.toString(arrayDeInteiros)` é uma forma conveniente de imprimir o conteúdo de um array para o usuário.
+
+Para compilar e executar este programa, você salvaria o código como `Q9.java`, compilaria com `javac Q9.java` e executaria com `java Q9` no terminal.
+
+Agora, vamos para a Q10, a última questão da sua lista.

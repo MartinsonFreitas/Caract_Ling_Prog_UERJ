@@ -1,0 +1,218 @@
+Entendido\! Vamos para a Q8, que é um simulador de investimentos mais complexo.
+
+**Q8. Considerando a questão Q7 faça um simulador que receba como entrada a quantia inicial investida, taxa de juros (permitindo escolher entre anual e mensal), aporte mensal (valor de capitalização) e período (em anos e meses) e gere um relatório comparativo entre os rendimentos do investimento e a poupança (considere taxa de juros de 0.5). Dado um valor objetivo e um aporte inicial, determine o tempo necessário que a pessoa necessita para chegar lá.**
+
+Esta questão é significativamente mais complexa que as anteriores, pois envolve múltiplos cálculos de juros compostos com aportes mensais, conversão de taxas e tempo, e uma funcionalidade de "tempo para o objetivo". Vou dividir a solução em partes e usar funções auxiliares para manter o código organizado.
+
+Considerações para a implementação:
+
+  * **Taxa de juros da poupança:** A questão menciona "taxa de juros de 0.5". Vou assumir que isso se refere a uma taxa de juros *mensal* de 0.5% (0.005) para a poupança, já que o aporte é mensal e é mais comum a poupança ter rendimento mensal. Se for 0.5% anual, os resultados seriam muito diferentes.
+  * **Conversão de Taxas:** Se a taxa do investimento for anual, ela precisará ser convertida para mensal para o cálculo dos aportes. A conversão de taxa anual para mensal em juros compostos é (1 + taxa\_anual)^(1/12) - 1.
+  * **Período:** O período total será em meses para facilitar o cálculo dos aportes mensais.
+  * **Relatório Comparativo:** Para o relatório, precisaremos calcular o saldo final para o investimento e para a poupança.
+  * **Tempo para o Objetivo:** Isso exigirá um loop que simula o investimento mês a mês até que o valor objetivo seja atingido.
+
+Aqui está o código Java para a Q8:
+
+``` java
+import java.util.Scanner;
+import java.lang.Math;
+import java.text.DecimalFormat;
+
+public class Q8 {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        // Usado para formatar a saída de valores monetários
+        DecimalFormat df = new DecimalFormat("R$ #,##0.00");
+
+        System.out.println("Bem-vindo ao Simulador de Investimentos!");
+
+        // --- Entrada de Dados ---
+        System.out.print("1. Quantia inicial investida (R$): ");
+        double principal = scanner.nextDouble();
+
+        System.out.print("2. Taxa de juros do investimento (ex: 0.05 para 5%): ");
+        double taxaInvestimento = scanner.nextDouble();
+
+        System.out.print("   O tipo da taxa de juros é (A)nual ou (M)ensal? (A/M): ");
+        String tipoTaxa = scanner.next().toUpperCase();
+
+        System.out.print("3. Aporte mensal (R$): ");
+        double aporteMensal = scanner.nextDouble();
+
+        System.out.print("4. Período de investimento (anos): ");
+        int anos = scanner.nextInt();
+
+        System.out.print("   Período de investimento (meses adicionais): ");
+        int mesesAdicionais = scanner.nextInt();
+
+        // --- Validação Inicial ---
+        if (principal < 0 || taxaInvestimento < 0 || aporteMensal < 0 || anos < 0 || mesesAdicionais < 0) {
+            System.out.println("Erro: Todos os valores monetários e de tempo devem ser não-negativos.");
+            scanner.close();
+            return;
+        }
+        if (!tipoTaxa.equals("A") && !tipoTaxa.equals("M")) {
+            System.out.println("Erro: Tipo de taxa inválido. Use 'A' para anual ou 'M' para mensal.");
+            scanner.close();
+            return;
+        }
+
+        int totalMeses = (anos * 12) + mesesAdicionais;
+
+        // --- Converter taxa anual para mensal se necessário ---
+        double taxaMensalInvestimento = taxaInvestimento;
+        if (tipoTaxa.equals("A")) {
+            taxaMensalInvestimento = Math.pow((1 + taxaInvestimento), (1.0 / 12.0)) - 1;
+            System.out.printf("\nTaxa anual de investimento convertida para mensal: %.4f%%\n", (taxaMensalInvestimento * 100));
+        }
+        
+        // Taxa da poupança (fixa em 0.5% mensal = 0.005)
+        double taxaPoupanca = 0.005; 
+        System.out.printf("Taxa de juros da poupança (mensal): %.2f%%\n", (taxaPoupanca * 100));
+
+        // --- Calcular Rendimentos ---
+        System.out.println("\n--- Relatório de Rendimentos ao longo de " + anos + " anos e " + mesesAdicionais + " meses ---");
+        
+        double saldoInvestimento = calcularRendimentoComAportes(principal, taxaMensalInvestimento, aporteMensal, totalMeses);
+        System.out.println("Saldo final do seu investimento: " + df.format(saldoInvestimento));
+
+        double saldoPoupanca = calcularRendimentoComAportes(principal, taxaPoupanca, aporteMensal, totalMeses);
+        System.out.println("Saldo final na poupança (0.5% a.m.): " + df.format(saldoPoupanca));
+
+        // --- Determinar Tempo para o Objetivo ---
+        System.out.print("\n5. Deseja determinar o tempo para atingir um valor objetivo? (S/N): ");
+        String respostaObjetivo = scanner.next().toUpperCase();
+
+        if (respostaObjetivo.equals("S")) {
+            System.out.print("6. Digite o valor objetivo (R$): ");
+            double valorObjetivo = scanner.nextDouble();
+
+            if (valorObjetivo <= principal) {
+                System.out.println("O valor objetivo deve ser maior que o valor inicial investido.");
+            } else {
+                determinarTempoParaObjetivo(principal, taxaMensalInvestimento, aporteMensal, valorObjetivo, df);
+            }
+        }
+
+        scanner.close();
+    }
+
+    /**
+     * Calcula o rendimento final de um investimento com aportes mensais.
+     *
+     * @param principal O valor inicial investido.
+     * @param taxaMensal A taxa de juros mensal (decimal).
+     * @param aporteMensal O valor do aporte mensal.
+     * @param numMeses O número total de meses.
+     * @return O saldo final do investimento.
+     */
+    public static double calcularRendimentoComAportes(double principal, double taxaMensal, double aporteMensal, int numMeses) {
+        double saldoAtual = principal;
+        for (int i = 0; i < numMeses; i++) {
+            saldoAtual = (saldoAtual + aporteMensal) * (1 + taxaMensal);
+        }
+        return saldoAtual;
+    }
+
+    /**
+     * Determina o tempo necessário para atingir um valor objetivo.
+     *
+     * @param principal O valor inicial investido.
+     * @param taxaMensal A taxa de juros mensal do investimento.
+     * @param aporteMensal O valor do aporte mensal.
+     * @param valorObjetivo O valor que se deseja atingir.
+     * @param df Formatador de números.
+     */
+    public static void determinarTempoParaObjetivo(double principal, double taxaMensal, double aporteMensal, double valorObjetivo, DecimalFormat df) {
+        double saldoAtual = principal;
+        int mesesNecessarios = 0;
+        
+        // Evita loop infinito se a taxa for 0 e o aporte não for suficiente ou se o objetivo nunca for atingido
+        if (taxaMensal == 0 && aporteMensal == 0 && principal < valorObjetivo) {
+            System.out.println("Com taxa de juros zero e sem aportes, o objetivo nunca será alcançado.");
+            return;
+        }
+        if (taxaMensal == 0 && (principal + aporteMensal * (valorObjetivo - principal) / aporteMensal) < valorObjetivo) { // Se aporte mensal for 0, mas objetivo ainda não é atingido
+             if (aporteMensal == 0 && principal < valorObjetivo) {
+                 System.out.println("Com taxa de juros zero e sem aportes, o objetivo nunca será alcançado.");
+                 return;
+             }
+        }
+
+        System.out.println("\n--- Tempo estimado para atingir o objetivo
+
+```
+``` java
+R$ " + df.format(valorObjetivo) + " ---");
+
+        if (principal >= valorObjetivo) {
+            System.out.println("O valor inicial (" + df.format(principal) + ") já é maior ou igual ao valor objetivo.");
+            return;
+        }
+
+        // Loop para simular mês a mês até atingir o objetivo
+        while (saldoAtual < valorObjetivo) {
+            mesesNecessarios++;
+            // Calcula o saldo para o próximo mês
+            saldoAtual = (saldoAtual + aporteMensal) * (1 + taxaMensal);
+
+            // Adiciona uma trava para evitar loops infinitos em cenários onde o objetivo é inatingível
+            if (mesesNecessarios > 1200) { // Limite de 100 anos
+                System.out.println("Parece que levará muito tempo para atingir o objetivo, ou ele pode ser inatingível com os parâmetros dados.");
+                System.out.println("Saldo após 100 anos: " + df.format(saldoAtual));
+                return;
+            }
+        }
+
+        int anosNecessarios = mesesNecessarios / 12;
+        int mesesRestantes = mesesNecessarios % 12;
+
+        System.out.println("Tempo necessário para atingir " + df.format(valorObjetivo) + ":");
+        System.out.println(mesesNecessarios + " meses (aproximadamente " + anosNecessarios + " anos e " + mesesRestantes + " meses).");
+        System.out.println("Saldo final atingido: " + df.format(saldoAtual));
+    }
+}
+
+```
+
+**Comentários sobre a lógica e o código da Q8:**
+
+Esta questão é a mais complexa até agora, e a solução é dividida em várias partes e funções para clareza e modularidade.
+
+1.  **Estrutura Principal (`main`):**
+    
+      * Coleta todas as entradas do usuário: principal, taxa de investimento (e seu tipo), aporte mensal, e o período (anos e meses).
+      * Realiza **validações básicas** para garantir que os valores são não-negativos e o tipo de taxa é válido.
+      * **Converte a taxa anual para mensal** se o usuário optar por uma taxa anual, usando a fórmula de equivalência de taxas de juros compostos: `(1 + taxa_anual)^(1/12) - 1`. Isso é crucial para que os aportes mensais sejam calculados corretamente.
+      * Define a `taxaPoupanca` como 0.005 (0.5% mensal), conforme a interpretação da questão.
+      * Chama a função `calcularRendimentoComAportes` para obter o saldo final do investimento e da poupança.
+      * Oferece ao usuário a opção de calcular o tempo para um objetivo, chamando `determinarTempoParaObjetivo` se a opção for 'S'.
+
+2.  **Função `calcularRendimentoComAportes`:**
+    
+      * Esta função simula o crescimento do investimento mês a mês.
+      * `saldoAtual` começa com o `principal`.
+      * Em cada mês do `for` loop:
+          * O `aporteMensal` é adicionado ao `saldoAtual`.
+          * O novo saldo é então multiplicado por `(1 + taxaMensal)` para aplicar os juros do mês.
+      * Retorna o `saldoAtual` após o número total de meses.
+
+3.  **Função `determinarTempoParaObjetivo`:**
+    
+      * Esta função recebe o principal, taxa, aporte, e o `valorObjetivo`.
+      * Usa um loop `while` que continua enquanto o `saldoAtual` for menor que o `valorObjetivo`.
+      * Em cada iteração do loop (representando um mês):
+          * `mesesNecessarios` é incrementado.
+          * O `saldoAtual` é calculado exatamente como em `calcularRendimentoComAportes`.
+      * **Tratamento de casos especiais:** Inclui validações para `valorObjetivo` ser maior que o `principal` e uma "trava" (`mesesNecessarios > 1200`) para evitar loops infinitos caso o objetivo seja inatingível com os parâmetros fornecidos (ex: aporte e juros muito baixos para um objetivo muito alto).
+      * Ao final, calcula os anos e meses a partir do total de `mesesNecessarios` e imprime o resultado formatado.
+
+4.  **Formatação de Saída (`DecimalFormat`):**
+    
+      * `DecimalFormat df = new DecimalFormat("R$ #,##0.00");` é usado para garantir que os valores monetários sejam exibidos no formato correto (R$ com duas casas decimais e separador de milhares).
+
+Para compilar e executar este programa, você salvaria o código como `Q8.java`, compilaria com `javac Q8.java` e executaria com `java Q8` no terminal.
+
+Agora, vamos para a Q9, a penúltima questão.

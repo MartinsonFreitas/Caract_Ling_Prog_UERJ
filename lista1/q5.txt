@@ -1,0 +1,105 @@
+Certo\! Vamos para a Q5.
+
+**Q5. Escreva um programa (usando o comando for) que exiba o seguinte padrão quadriculado**  
+\* \* \* \* \*  
+\* \* \* \* \*  
+\* \* \* \* \*  
+\* \* \* \* \*  
+\* \* \* \* \*
+
+Aqui está o código Java para a Q5:
+
+``` java
+public class Q5 {
+
+    public static void main(String[] args) {
+        // Por padrão, vamos gerar um quadrado 5x5, como no exemplo.
+        // Você pode facilmente adicionar uma entrada do usuário para definir o tamanho
+        // se desejar flexibilidade (similar às questões anteriores).
+        int tamanhoLado = 5; 
+
+        System.out.println("Imprimindo o padrão quadriculado " + tamanhoLado + "x" + tamanhoLado + ":");
+
+        // Loop externo para controlar as linhas
+        for (int i = 0; i < tamanhoLado; i++) {
+            // Loop interno para controlar os asteriscos em cada coluna da linha
+            for (int j = 0; j < tamanhoLado; j++) {
+                System.out.print("* "); // Imprime um asterisco e um espaço para o quadriculado
+            }
+            System.out.println(); // Quebra de linha para a próxima linha do padrão
+        }
+    }
+}
+
+```
+
+**Comentários sobre a lógica e o código da Q5:**
+
+1.  **Estrutura do Padrão:** O padrão quadriculado é essencialmente uma matriz de asteriscos. Para criar uma matriz, a maneira mais comum e eficiente é usar loops aninhados.
+2.  **Loops \`\`\` &#10;for &#10;\`\`\`:** A questão explicitamente pede o uso do comando
+    ``` 
+    for 
+    ```
+    .
+      - **Loop Externo (\`\`\` &#10;for (int i = 0; i \< tamanhoLado; i++) &#10;\`\`\`):** Este loop itera
+        ``` 
+        tamanhoLado 
+        ```
+        vezes, representando cada uma das linhas do quadrado. A variável
+        ``` 
+        i 
+        ```
+        serve como um contador para as linhas.
+      - **Loop Interno (\`\`\` &#10;for (int j = 0; j \< tamanhoLado; j++) &#10;\`\`\`):** Este loop também itera
+        ``` 
+        tamanhoLado 
+        ```
+        vezes para cada execução do loop externo. Ele é responsável por imprimir os asteriscos em uma única linha. A variável
+        ``` 
+        j 
+        ```
+        serve como um contador para as colunas.
+3.  **Impressão:**
+      - ``` 
+        System.out.print("* "); 
+        ```
+        : Dentro do loop interno, imprime um asterisco seguido por um espaço. O espaço é importante para que os asteriscos não fiquem colados e formem o padrão quadriculado.
+      - ``` 
+        System.out.println(); 
+        ```
+        : Após o loop interno terminar de imprimir todos os asteriscos de uma linha,
+        ``` 
+        System.out.println() 
+        ```
+        é chamado para mover o cursor para a próxima linha, garantindo que o próximo conjunto de asteriscos comece na linha correta.
+4.  **Tamanho do Lado:** Para este exemplo, fixei o
+    ``` 
+    tamanhoLado 
+    ```
+    em 5 para replicar o exemplo fornecido. Você poderia facilmente adaptá-lo para receber o
+    ``` 
+    tamanhoLado 
+    ```
+    como entrada do usuário, assim como nas questões anteriores, se fosse necessário um padrão de tamanho variável.
+
+Para compilar e executar este programa, você salvaria o código como
+
+``` 
+Q5.java 
+```
+
+, compilaria com
+
+``` 
+javac Q5.java 
+```
+
+e executaria com
+
+``` 
+java Q5 
+```
+
+no terminal.
+
+Agora, vamos para a Q6.

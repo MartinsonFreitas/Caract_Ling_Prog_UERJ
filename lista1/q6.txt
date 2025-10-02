@@ -1,0 +1,191 @@
+Com certeza\! Vamos para a Q6.
+
+**Q6. Escreva um programa que chame uma função que receba um número inteiro positivo como argumento e verifique se é um número perfeito. Um número perfeito é aquele que é igual à soma de seus divisores próprios (excluindo ele mesmo). Exemplos de números perfeitos O número 6 é um número perfeito, pois a soma de seus divisores próprios (1, 2, 3) é igual a ele mesmo: 1+2+3=6. O número 28 é um número perfeito, pois a soma de seus divisores próprios (1, 2, 4, 7, 14) é igual a ele mesmo: 1+2 +4+7+14=28**
+
+Aqui está o código Java para a Q6:
+
+``` java
+import java.util.Scanner;
+
+public class Q6 {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Bem-vindo ao verificador de números perfeitos!");
+        System.out.print("Por favor, digite um número inteiro positivo para verificar: ");
+        int numero = scanner.nextInt();
+
+        // Validação básica para número positivo
+        if (numero <= 0) {
+            System.out.println("Por favor, insira um número inteiro positivo.");
+            scanner.close();
+            return;
+        }
+
+        System.out.println("\nVerificando se " + numero + " é um número perfeito...");
+
+        // Chama a função para verificar se o número é perfeito
+        if (isNumeroPerfeito(numero)) {
+            System.out.println(numero + " É um número perfeito!");
+        } else {
+            System.out.println(numero + " NÃO é um número perfeito.");
+        }
+
+        scanner.close();
+    }
+
+    /**
+     * Verifica se um número é perfeito.
+     * Um número perfeito é aquele que é igual à soma de seus divisores próprios (excluindo ele mesmo).
+     *
+     * @param num O número inteiro positivo a ser verificado.
+     * @return true se o número for perfeito, false caso contrário.
+     */
+    public static boolean isNumeroPerfeito(int num) {
+        if (num == 1) { // 1 não é considerado um número perfeito pela maioria das definições
+            return false;
+        }
+
+        int somaDivisores = 1; // Começa com 1, pois 1 é sempre um divisor próprio de qualquer número > 1
+
+        // Loop para encontrar os divisores próprios
+        // Percorre de 2 até a raiz quadrada do número para otimização
+        for (int i = 2; i * i <= num; i++) {
+            if (num % i == 0) { // Se 'i' é um divisor
+                somaDivisores += i; // Adiciona 'i' à soma
+
+                // Se 'i' não é a raiz quadrada exata, então num/i também é um divisor próprio
+                if (i * i != num) {
+                    somaDivisores += (num / i);
+                }
+            }
+        }
+        
+        // Um número é perfeito se a soma de seus divisores próprios for igual a ele mesmo
+        return somaDivisores == num;
+    }
+}
+
+```
+
+**Comentários sobre a lógica e o código da Q6:**
+
+1.  **Função Dedicada (\`\`\`  
+    isNumeroPerfeito  
+    \`\`\`):** O enunciado pede para criar uma função para realizar a verificação. A função
+    ``` 
+    isNumeroPerfeito  
+    ```
+    foi criada com esse propósito. Ela retorna um
+    ``` 
+    boolean  
+    ```
+    (verdadeiro ou falso) indicando se o número é perfeito.
+2.  **Lógica da Soma dos Divisores:**
+      - A
+        ``` 
+        somaDivisores  
+        ```
+        é inicializada com 1, pois 1 é sempre um divisor próprio de qualquer número inteiro positivo (exceto 1, que é tratado separadamente).
+      - O loop
+        ``` 
+        for  
+        ```
+        itera de 2 até a raiz quadrada do
+        ``` 
+        num  
+        ```
+        . Isso é uma otimização: se
+        ``` 
+        i  
+        ```
+        é um divisor de
+        ``` 
+        num  
+        ```
+        , então
+        ``` 
+        num / i  
+        ```
+        também é um divisor. Ao ir até a raiz quadrada, encontramos pares de divisores (exceto quando
+        ``` 
+        i * i == num  
+        ```
+        , ou seja,
+        ``` 
+        i  
+        ```
+        é a raiz quadrada).
+      - Dentro do loop, se
+        ``` 
+        i  
+        ```
+        divide
+        ``` 
+        num  
+        ```
+        (
+        ``` 
+        num % i == 0  
+        ```
+        ), então
+        ``` 
+        i  
+        ```
+        é adicionado à soma.
+      - Se
+        ``` 
+        i * i != num  
+        ```
+        (ou seja,
+        ``` 
+        i  
+        ```
+        não é a raiz quadrada exata), então
+        ``` 
+        num / i  
+        ```
+        é outro divisor próprio e também é adicionado à soma.
+3.  **Condição de Perfeito:** Ao final, a função compara
+    ``` 
+    somaDivisores  
+    ```
+    com o
+    ``` 
+    num  
+    ```
+    original. Se forem iguais, o número é perfeito.
+4.  **Tratamento do Número 1:** Embora o conceito de divisor próprio geralmente se aplique a números maiores que 1, 1 não é um número perfeito, pois não tem divisores próprios que somem a ele mesmo (seu único divisor é ele próprio, que é excluído da soma). Adicionei uma verificação explícita para o número 1.
+5.  **Entrada e Saída:** O
+    ``` 
+    main  
+    ```
+    lê o número do usuário e chama a função
+    ``` 
+    isNumeroPerfeito  
+    ```
+    , imprimindo o resultado.
+6.  **Validação:** Verifica se o número inserido é positivo.
+
+Para compilar e executar este programa, você salvaria o código como
+
+``` 
+Q6.java  
+```
+
+, compilaria com
+
+``` 
+javac Q6.java  
+```
+
+e executaria com
+
+``` 
+java Q6  
+```
+
+no terminal.
+
+Agora, vamos para a Q7.

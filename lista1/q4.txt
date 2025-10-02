@@ -1,0 +1,63 @@
+Continuando com a lista, vamos para a Q4.
+
+**Q4. Crie um programa (usando o comando while) que imprima um triângulo usando \*. Exemplo, para n=5 a saída deve ser:**  
+\*  
+\*\*  
+\*\*\*  
+\*\*\*\*
+
+Aqui está o código Java para a Q4:
+
+``` java
+import java.util.Scanner;
+
+public class Q4 {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Bem-vindo ao programa de triângulo de asteriscos!");
+        System.out.print("Por favor, digite o número de linhas (n) para o triângulo: ");
+        int n = scanner.nextInt();
+
+        // Validação básica para n positivo
+        if (n <= 0) {
+            System.out.println("O número de linhas deve ser um inteiro positivo.");
+            scanner.close();
+            return;
+        }
+
+        int linhaAtual = 1; // Inicializa o contador de linhas
+
+        System.out.println("\nImprimindo o triângulo com " + n + " linhas:");
+
+        // Loop externo para controlar as linhas
+        while (linhaAtual <= n) {
+            int asteriscosNaLinha = 1; // Inicializa o contador de asteriscos para a linha atual
+            // Loop interno para imprimir os asteriscos em cada linha
+            while (asteriscosNaLinha <= linhaAtual) {
+                System.out.print("*");
+                asteriscosNaLinha++;
+            }
+            System.out.println(); // Quebra de linha para a próxima linha do triângulo
+            linhaAtual++; // Incrementa o contador de linhas
+        }
+
+        scanner.close();
+    }
+}
+
+```
+
+**Comentários sobre a lógica e o código da Q4:**
+
+1.  **Entrada de Dados:** Utiliza `Scanner` para ler o número de linhas (`n`) que o usuário deseja para o triângulo.
+2.  **Validação:** Verifica se `n` é um número positivo, já que um triângulo precisa de pelo menos uma linha.
+3.  **Loops `while`:** O cerne do problema é resolvido com dois loops `while` aninhados, conforme solicitado:
+      * **Loop Externo (`while (linhaAtual <= n)`):** Este loop controla o número de linhas a serem impressas. Ele começa na `linhaAtual = 1` e continua enquanto `linhaAtual` for menor ou igual a `n`.
+      * **Loop Interno (`while (asteriscosNaLinha <= linhaAtual)`):** Este loop é executado para cada `linhaAtual`. Ele é responsável por imprimir a quantidade correta de asteriscos. A cada linha, o número de asteriscos a ser impresso é igual ao número da `linhaAtual`. Por exemplo, na linha 1, imprime 1 asterisco; na linha 2, imprime 2 asteriscos, e assim por diante.
+4.  **Quebra de Linha:** `System.out.println();` é usado após o loop interno para mover o cursor para a próxima linha, formando o triângulo.
+
+Para compilar e executar este programa, você salvaria o código como `Q4.java`, compilaria com `javac Q4.java` e executaria com `java Q4` no terminal.
+
+Agora, vamos para a Q5.

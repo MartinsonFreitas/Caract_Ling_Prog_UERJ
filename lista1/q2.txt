@@ -1,0 +1,90 @@
+Perfeito\! Vamos para a Q2.
+
+**Q2. Crie um programa em Java que leia os 3 lados A, B e C de um triângulo, onde A é o maior lado, e imprima em qual caso este triângulo se encaixa.**
+
+  * **Se A\>=B+C então nenhum triângulo é formado**
+  * **Se A²=B²+C², então temos um triângulo retângulo**
+  * **Se A²\>B²+C² então temos um triângulo obtusângulo**
+  * **Se A²\<B²+C², então temos um triângulo acutângulo**
+
+Aqui está o código Java para a Q2:
+
+``` java
+import java.util.Scanner;
+import java.lang.Math; // Para usar Math.pow ou Math.sqrt, embora para potências de 2 a multiplicação seja mais simples.
+
+public class Q2 {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Bem-vindo ao classificador de triângulos!");
+        System.out.println("Por favor, digite os 3 lados do triângulo (A, B e C), onde A é o maior lado:");
+
+        System.out.print("Lado A (o maior): ");
+        double ladoA = scanner.nextDouble();
+
+        System.out.print("Lado B: ");
+        double ladoB = scanner.nextDouble();
+
+        System.out.print("Lado C: ");
+        double ladoC = scanner.nextDouble();
+
+        // Validação básica para lados positivos
+        if (ladoA <= 0 || ladoB <= 0 || ladoC <= 0) {
+            System.out.println("Os lados do triângulo devem ser números positivos.");
+            scanner.close();
+            return;
+        }
+
+        // A questão especifica "onde A é o maior lado".
+        // Uma validação adicional seria verificar se A é realmente o maior lado.
+        if (ladoA < ladoB || ladoA < ladoC) {
+            System.out.println("Atenção: Você informou que A é o maior lado, mas A (" + ladoA + ") não é maior que B (" + ladoB + ") ou C (" + ladoC + ").");
+            System.out.println("Para uma classificação correta, por favor, insira o maior lado como A.");
+            // Poderíamos ordenar os lados aqui, mas a questão pede "onde A é o maior lado",
+            // então é melhor alertar e pedir para o usuário corrigir se necessário.
+            // Para seguir estritamente o enunciado, prosseguiremos com os valores fornecidos,
+            // mas é bom alertar o usuário.
+        }
+
+        // Calculando os quadrados para as comparações
+        double aQuadrado = ladoA * ladoA;
+        double bQuadrado = ladoB * ladoB;
+        double cQuadrado = ladoC * ladoC;
+
+        System.out.println("\nAnalisando o triângulo com lados A=" + ladoA + ", B=" + ladoB + ", C=" + ladoC + "...");
+
+        // Usando a ordem das condições do enunciado
+        if (ladoA >= (ladoB + ladoC)) {
+            System.out.println("Nenhum triângulo é formado (A >= B + C).");
+        } else if (aQuadrado == (bQuadrado + cQuadrado)) {
+            System.out.println("Temos um triângulo retângulo (A² = B² + C²).");
+        } else if (aQuadrado > (bQuadrado + cQuadrado)) {
+            System.out.println("Temos um triângulo obtusângulo (A² > B² + C²).");
+        } else if (aQuadrado < (bQuadrado + cQuadrado)) {
+            System.out.println("Temos um triângulo acutângulo (A² < B² + C²).");
+        } else {
+            System.out.println("Não foi possível classificar o triângulo com os dados fornecidos.");
+        }
+
+        scanner.close();
+    }
+}
+
+```
+
+**Comentários sobre a lógica e o código da Q2:**
+
+1.  **Entrada de Dados:** Utiliza `Scanner` para ler os três lados (A, B e C) como `double`, permitindo valores não inteiros para os lados.
+2.  **Validação Básica:** Verifica se os lados são números positivos.
+3.  **Verificação do Maior Lado A:** O enunciado exige que "A é o maior lado". Adicionei uma verificação para alertar o usuário se `ladoA` não for de fato o maior dos três lados. Embora o programa prossiga com os valores dados, é importante para o usuário saber se a premissa inicial foi atendida.
+4.  **Cálculo dos Quadrados:** Para evitar recalcular as potências em cada `if`, os quadrados são calculados uma vez.
+5.  **Classificação do Triângulo:** As condições são verificadas na ordem exata fornecida no enunciado:
+      * Primeiro, a condição de não formação de triângulo (`A >= B + C`).
+      * Depois, as condições para triângulo retângulo, obtusângulo e acutângulo, que dependem da relação entre o quadrado do maior lado e a soma dos quadrados dos outros dois.
+6.  **Saída:** Imprime a classificação do triângulo.
+
+Para compilar e executar este programa, você salvaria o código como `Q2.java`, compilaria com `javac Q2.java` e executaria com `java Q2` no terminal.
+
+Agora, vamos para a Q3.

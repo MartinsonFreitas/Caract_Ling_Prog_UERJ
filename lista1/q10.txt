@@ -1,0 +1,316 @@
+Ótimo\! Chegamos à última questão da sua lista.
+
+**Q10. Crie um programa que permita realizar operações entre matrizes. O programa deve exibir um menu de opções para as seguintes funcionalidades:**  
+**a) Criar matriz de n linhas e m colunas, recebe dois inteiros n e me retorna uma lista de listas**  
+**b) Somar duas matrizes, recebe duas matrizes A e B e retorna uma matriz C**  
+**c) Multiplicar matriz por escalar, recebe uma matriz A e um número real k e retorna outra matriz onde cada elemento é multiplicado pelo valor k.**  
+**d) Multiplicação de matrizes, recebe duas matrizes A e B e retorna uma matriz C. Lembre que só é possível multiplicar duas matrizes A e B se o número de colunas da matriz A for igual ao número de linhas da matriz B, ou seja**  
+**A m x n x B n x p**  
+**Número de colunas em A iguais ao número de linhas em B**  
+**Exemplo: ... (exemplo de multiplicação de matrizes)**  
+**Observações: Acrescente as funções necessárias para leitura e impressão dos dados das matrizes.**
+
+Esta é uma questão abrangente que exige múltiplas funções e um menu interativo. Vou estruturar o código com uma classe principal (Q10) e métodos estáticos para cada operação de matriz, além de métodos auxiliares para leitura e impressão.
+
+Aqui está o código Java para a Q10:
+
+``` java
+import java.util.Scanner;
+import java.util.ArrayList; // Para usar ArrayList como "lista de listas"
+import java.text.DecimalFormat; // Para formatar a saída de doubles
+
+public class Q10 {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        DecimalFormat df = new DecimalFormat("#.##"); // Formata para 2 casas decimais, ou menos se inteiro
+
+        ArrayList<ArrayList<Double>> matrizA = null; // Inicializa como null
+        ArrayList<ArrayList<Double>> matrizB = null; // Inicializa como null
+
+        int opcao;
+        do {
+            exibirMenu();
+            System.out.print("Escolha uma opção: ");
+            opcao = scanner.nextInt();
+
+            switch (opcao) {
+                case 1: // Criar Matriz A
+                    System.out.println("\n--- Criar Matriz A ---");
+                    matrizA = criarMatriz(scanner);
+                    if (matrizA != null) {
+                        System.out.println("Matriz A criada:");
+                        imprimirMatriz(matrizA);
+                    }
+                    break;
+                case 2: // Criar Matriz B
+                    System.out.println("\n--- Criar Matriz B ---");
+                    matrizB = criarMatriz(scanner);
+                    if (matrizB != null) {
+                        System.out.println("Matriz B criada:");
+                        imprimirMatriz(matrizB);
+                    }
+                    break;
+                case 3: // Somar Matrizes
+                    System.out.println("\n--- Somar Matrizes A + B ---");
+                    if (matrizA == null || matrizB == null) {
+                        System.out.println("Erro: Ambas as matrizes A e B devem ser criadas primeiro.");
+                    } else {
+                        ArrayList<ArrayList<Double>> matrizSoma = somarMatrizes(matrizA, matrizB);
+                        if (matrizSoma != null) {
+                            System.out.println("Resultado da Soma (Matriz C):");
+                            imprimirMatriz(matrizSoma);
+                        }
+                    }
+                    break;
+                case 4: // Multiplicar Matriz por Escalar
+                    System.out.println("\n--- Multiplicar Matriz por Escalar ---");
+                    if (matrizA == null) {
+                        System.out.println("Erro: A Matriz A deve ser criada primeiro.");
+                    } else {
+                        System.out.print("Digite o valor escalar (k): ");
+                        double k = scanner.nextDouble();
+                        ArrayList<ArrayList<Double>> matrizMultiplicada = multiplicarPorEscalar(matrizA, k);
+                        System.out.println("Resultado da Multiplicação por Escalar (Matriz A * " + df.format(k) + "):");
+                        imprimirMatriz(matrizMultiplicada);
+                    }
+                    break;
+                case 5: // Multiplicação de Matrizes
+                    System.out.println("\n--- Multiplicação de Matrizes A x B ---");
+                    if (matrizA == null || matrizB == null) {
+                        System.out.println("Erro: Ambas as matrizes A e B devem ser criadas primeiro.");
+                    } else {
+                        ArrayList<ArrayList<Double>> matrizProduto = multiplicarMatrizes(matrizA, matrizB);
+                        if (matrizProduto != null) {
+                            System.out.println("Resultado da Multiplicação (Matriz C):");
+                            imprimirMatriz(matrizProduto);
+                        }
+                    }
+                    break;
+                case 0:
+                    System.out.println("Saindo do programa. Até mais!");
+                    break;
+                default:
+                    System.out.println("Opção inválida. Por favor, tente novamente.");
+                    break;
+            }
+            System.out.println(); // Linha em branco para melhor legibilidade
+        } while (opcao != 0);
+
+        scanner.close();
+    }
+
+    // --- Métodos Auxiliares e Funcionalidades ---
+
+    public static void exibirMenu() {
+        System.out.println("--- Operações entre Matrizes ---");
+        System.out.println("1. Criar Matriz A");
+        System.out.println("2. Criar Matriz B");
+        System.out.println("3. Somar Matrizes A + B");
+        System.out.println("4. Multiplicar Matriz A por Escalar");
+        System.out.println("5. Multiplicação de Matrizes A x B");
+        System.out.println("0. Sair");
+        System.out.println("---------------------------------");
+    }
+
+    /**
+     * a) Cria uma matriz de n linhas e m colunas, recebendo os elementos do usuário.
+     * Retorna uma lista de listas (ArrayList de ArrayLists).
+     */
+    public statSystem.out.println("\nProcurando par consecutivo com soma " + x + " no array: " + Arrays.toString(arrayDeInteiros));ic ArrayList<ArrayList<Double>> criarMatriz(Scanner scanner) {
+        System.out.print("Digite o número de linhas (n): ");
+        int n = scanner.nextInt();
+        System.out.print("Digite o número de colunas (m): ");
+        int m = scanner.nextInt();
+
+        if (n <= 0 || m <= 0) {
+            System.out.println("Erro: O número de linhas e colunas deve ser positivo.");
+            return null; // Retorna null em caso de erro
+        }
+
+        ArrayList<ArrayList<Double>> matriz = new ArrayList<>();
+        System.out.println("Digite os elementos da matriz (" + n + "x" + m + "):");
+        for (int i = 0; i < n; i++) {
+            ArrayList<Double> linha = new ArrayList<>();
+            System.out.println("Linha " + (i + 1) + ":");
+            for (int j = 0; j < m; j++) {
+                System.out.print("Elemento [" + (i + 1) + "][" + (j + 1) + "]: ");
+                linha.add(scanner.nextDouble());
+            }
+            matriz.add(linha);
+        }
+        return matriz;
+    }
+
+    /**
+     * Imprime uma matriz formatada.
+     */
+    public static void imprimirMatriz(ArrayList<ArrayList<Double>> matriz) {
+        if (matriz == null || matriz.isEmpty()) {
+            System.out.println("Matriz vazia ou inválida.");
+            return;
+        }
+
+        DecimalFormat df = new DecimalFormat("0.00"); // Para garantir 2 casas decimais na impressão
+
+        for (int i = 0; i < matriz.size(); i++) {
+            for (int j = 0; j < matriz.get(i).size(); j++) {
+                System.out.print(df.format(matriz.get(i).get(j)) + "\t"); // Tab para espaçamento
+            }
+            System.out.println(); // Nova linha após cada linha da matriz
+        }
+    }
+
+    /**
+     * b) Soma duas matrizes A e B e retorna uma matriz C.
+     * As matrizes devem ter as mesmas dimensões.
+     */
+    public static ArrayList<ArrayList<Double>> somarMatrizes(ArrayList<ArrayList<Double>> A, ArrayList<ArrayList<Double>> B) {
+        // Verifica se as matrizes são nulas
+        if (A == null || B == null) {
+            System.out.println("Erro na soma: Matrizes nulas.");
+            
+```
+``` java
+            return null;
+        }
+
+        // Verifica se as dimensões são compatíveis para soma (mesmo número de linhas e colunas)
+        if (A.size() != B.size() || A.get(0).size() != B.get(0).size()) {
+            System.out.println("Erro na soma: As matrizes devem ter as mesmas dimensões para serem somadas.");
+            return null;
+        }
+
+        int n = A.size(); // Número de linhas
+        int m = A.get(0).size(); // Número de colunas
+
+        ArrayList<ArrayList<Double>> C = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            ArrayList<Double> linhaC = new ArrayList<>();
+            for (int j = 0; j < m; j++) {
+                linhaC.add(A.get(i).get(j) + B.get(i).get(j));
+            }
+            C.add(linhaC);
+        }
+        return C;
+    }
+
+    /**
+     * c) Multiplica uma matriz A por um escalar k e retorna a matriz resultante.
+     */
+    public static ArrayList<ArrayList<Double>> multiplicarPorEscalar(ArrayList<ArrayList<Double>> A, double k) {
+        if (A == null || A.isEmpty()) {
+            System.out.println("Erro na multiplicação por escalar: Matriz nula ou vazia.");
+            return null;
+        }
+
+        ArrayList<ArrayList<Double>> C = new ArrayList<>();
+        for (int i = 0; i < A.size(); i++) {
+            ArrayList<Double> linhaC = new ArrayList<>();
+            for (int j = 0; j < A.get(i).size(); j++) {
+                linhaC.add(A.get(i).get(j) * k);
+            }
+            C.add(linhaC);
+        }
+        return C;
+    }
+
+    /**
+     * d) Multiplica duas matrizes A e B e retorna uma matriz C.
+     * A multiplicação só é possível se o número de colunas de A for igual ao número de linhas de B.
+     */
+    public static ArrayList<ArrayList<Double>> multiplicarMatrizes(ArrayList<ArrayList<Double>> A, ArrayList<ArrayList<Double>> B) {
+        // Verifica se as matrizes são nulas
+        if (A == null || B == null) {
+            System.out.println("Erro na multiplicação: Matrizes nulas.");
+            return null;
+        }
+
+        int colunasA = A.get(0).size();
+        int linhasB = B.size();
+
+        // Verifica a condição de multiplicabilidade
+        if (colunasA != linhasB) {
+            System.out.println("Erro na multiplicação: O número de colunas da Matriz A (" + colunasA + ") deve ser igual ao número de linhas da Matriz B (" + linhasB + ").");
+            return null;
+        }
+
+        int linhasA = A.size();
+        int colunasB = B.get(0).size(); // Assume que todas as linhas de B têm o mesmo número de colunas
+
+        ArrayList<ArrayList<Double>> C = new ArrayList<>(); // Matriz resultado (linhasA x colunasB)
+
+        // Inicializa a matriz C com zeros
+        for (int i = 0; i < linhasA; i++) {
+            ArrayList<Double> linhaC = new ArrayList<>();
+            for (int j = 0; j < colunasB; j++) {
+                linhaC.add(0.0); // Inicializa com 0.0
+            }
+            C.add(linhaC);
+        }
+
+        // Realiza a multiplicação de matrizes
+        for (int i = 0; i < linhasA; i++) { // Para cada linha de A
+            for (int j = 0; j < colunasB; j++) { // Para cada coluna de B
+                double somaProduto = 0;
+                for (int k = 0; k < colunasA; k++) { // k percorre colunas de A e linhas de B
+                    somaProduto += A.get(i).get(k) * B.get(k).get(j);
+                }
+                C.get(i).set(j, somaProduto); // Define o elemento [i][j] da matriz C
+            }
+        }
+        return C;
+    }
+}
+
+```
+
+**Comentários sobre a lógica e o código da Q10:**
+
+Esta questão é a mais robusta e exigiu a criação de um sistema de menu e várias funções para cada operação de matriz.
+
+1.  **Estrutura do Programa:**
+    
+      * **`main` método:** É o ponto de entrada do programa. Ele gerencia o menu interativo, a criação das matrizes A e B, e a chamada das funções de operação com base na escolha do usuário.
+      * **`ArrayList<ArrayList<Double>>`:** Escolhi `ArrayList` de `ArrayList` de `Double` para representar as matrizes. Isso oferece flexibilidade (diferente de arrays multidimensionais fixos) e permite o uso de números reais (Double).
+      * **`Scanner` e `DecimalFormat`:** Usados para entrada de dados e formatação de saída, respectivamente.
+
+2.  **`exibirMenu()`:**
+    
+      * Uma função simples que imprime as opções disponíveis para o usuário.
+
+3.  **`criarMatriz(Scanner scanner)` (Funcionalidade 'a'):**
+    
+      * Recebe o número de linhas (`n`) e colunas (`m`) do usuário.
+      * Valida se `n` e `m` são positivos.
+      * Usa loops aninhados para solicitar cada elemento da matriz ao usuário e adicioná-los à `ArrayList` de `ArrayLists`.
+
+4.  **`imprimirMatriz(ArrayList<ArrayList<Double>> matriz)`:**
+    
+      * Uma função auxiliar genérica para imprimir qualquer matriz formatada.
+      * Verifica se a matriz é nula ou vazia antes de tentar imprimir.
+      * Usa `DecimalFormat` para garantir que os elementos `Double` sejam exibidos com duas casas decimais, melhorando a legibilidade.
+
+5.  **`somarMatrizes(ArrayList<ArrayList<Double>> A, ArrayList<ArrayList<Double>> B)` (Funcionalidade 'b'):**
+    
+      * **Validação:** Verifica se as matrizes `A` e `B` não são nulas e, crucialmente, se têm as mesmas dimensões (mesmo número de linhas e colunas). Se as dimensões forem diferentes, a soma não é possível, e a função retorna `null` após imprimir uma mensagem de erro.
+      * **Cálculo:** Se as dimensões são compatíveis, um novo `ArrayList` de `ArrayLists` (`C`) é criado. Loops aninhados percorrem as matrizes e somam os elementos correspondentes, armazenando o resultado em `C`.
+
+6.  **`multiplicarPorEscalar(ArrayList<ArrayList<Double>> A, double k)` (Funcionalidade 'c'):**
+    
+      * Recebe a matriz `A` e um valor escalar `k`.
+      * Cria uma nova matriz `C` e, em loops aninhados, multiplica cada elemento de `A` por `k`, armazenando o resultado em `C`.
+
+7.  **`multiplicarMatrizes(ArrayList<ArrayList<Double>> A, ArrayList<ArrayList<Double>> B)` (Funcionalidade 'd'):**
+    
+      * **Validação:** Esta é a parte mais importante. Verifica se o número de colunas da matriz `A` (`colunasA`) é igual ao número de linhas da matriz `B` (`linhasB`). Se não forem iguais, a multiplicação não é possível, e a função retorna `null`.
+      * **Dimensões da Matriz Resultado:** A matriz resultante `C` terá o número de linhas de `A` e o número de colunas de `B`.
+      * **Inicialização da Matriz Resultado:** É importante inicializar todos os elementos da matriz `C` com `0.0` antes de realizar as somas dos produtos.
+      * **Cálculo:**
+          * O loop externo (`i`) percorre as linhas de `A` (e, portanto, as linhas de `C`).
+          * O loop intermediário (`j`) percorre as colunas de `B` (e, portanto, as colunas de `C`).
+          * O loop interno (`k`) é o coração da multiplicação. Ele percorre as colunas de `A` (e as linhas de `B`). Para cada elemento `C[i][j]`, ele calcula a soma dos produtos dos elementos da `i`-ésima linha de `A` pelos elementos da `j`-ésima coluna de `B`.
+
+Para compilar e executar este programa, você salvaria o código como `Q10.java`, compilaria com `javac Q10.java` e executaria com `java Q10` no terminal.
+
+\*\*Com isso, todas as 10 questões da sua lista de exercícios

@@ -1,0 +1,94 @@
+Muito bem\! Vamos para a Q7.
+
+**Q7. Crie uma função para calcular os juros compostos de um investimento. Uma pessoa investe uma quantidade (em reais) em uma conta que rende uma taxa de juros ao ano. Admitindo que todos os juros são deixados em depósito na conta, crie uma função que calcule e imprima a quantia na conta ao final de cada ano, ao longo de n anos. Use a seguinte fórmula para determinar estas quantias: a=p(1+r)^n**  
+**Onde:**  
+**p é a quantia investida originalmente (i.e., o valor principal)**  
+**r é a taxa anual de juros.**  
+**n é o número de anos**  
+**a é a quantia existente em depósito no final do n-ésimo ano**  
+**Exemplo de saída para R$1000,00 em 10 anos e 5% (0.05) de juros ao ano**  
+**Ano Saldo na conta**  
+**1 1050.00**  
+**2 1102.50**  
+**3 1157.62**  
+**4 1215.51**  
+**5 1276.28**  
+**6 1340.10**  
+**7 1407.10**  
+**8 1477.46**  
+**9 1551.33**  
+**10 1628.89**
+
+Aqui está o código Java para a Q7:
+
+``` java
+import java.util.Scanner;
+import java.lang.Math; // Para usar Math.pow
+
+public class Q7 {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Bem-vindo ao calculador de juros compostos!");
+
+        System.out.print("Digite a quantia investida originalmente (p): R$ ");
+        double principal = scanner.nextDouble();
+
+        System.out.print("Digite a taxa anual de juros (r, ex: 0.05 para 5%): ");
+        double taxaJuros = scanner.nextDouble();
+
+        System.out.print("Digite o número de anos (n): ");
+        int numeroAnos = scanner.nextInt();
+
+        // Validação básica para entradas positivas
+        if (principal <= 0 || taxaJuros < 0 || numeroAnos <= 0) {
+            System.out.println("Por favor, insira valores positivos para o principal e número de anos, e uma taxa de juros não negativa.");
+            scanner.close();
+            return;
+        }
+
+        System.out.println("\nCalculando o saldo da conta ao longo dos anos:");
+        calcularJurosCompostos(principal, taxaJuros, numeroAnos);
+
+        scanner.close();
+    }
+
+    /**
+     * Calcula e imprime a quantia em depósito ao final de cada ano para um investimento com juros compostos.
+     *
+     * @param p Quantia investida originalmente (principal).
+     * @param r Taxa anual de juros (em formato decimal, ex: 0.05 para 5%).
+     * @param n Número total de anos.
+     */
+    public static void calcularJurosCompostos(double p, double r, int n) {
+        System.out.println("Ano\tSaldo na conta");
+        System.out.println("--------------------");
+
+        for (int ano = 1; ano <= n; ano++) {
+            // a = p * (1 + r)^n
+            double montante = p * Math.pow((1 + r), ano);
+            System.out.printf("%d\t%.2f\n", ano, montante);
+        }
+    }
+}
+
+```
+
+**Comentários sobre a lógica e o código da Q7:**
+
+1.  **Função Dedicada (\`\`\`calcularJurosCompostos\`\`\`):** Conforme solicitado, uma função separada foi criada para encapsular a lógica de cálculo e impressão dos juros compostos. Ela recebe o principal (`p`), a taxa de juros (`r`) e o número de anos (`n`) como argumentos.
+2.  **Fórmula dos Juros Compostos:** A função implementa diretamente a fórmula fornecida: `a = p * (1 + r)^n`.
+      - `Math.pow((1 + r), ano)` é usado para calcular `(1 + r)` elevado à potência do número do `ano` atual.
+3.  **Loop para Cada Ano:** Um loop `for` itera de `1` até `n` (o número total de anos). Em cada iteração, o `montante` (valor `a` na fórmula) é calculado para aquele ano específico.
+4.  **Formato de Saída:**
+      - `System.out.printf` é usado para formatar a saída.
+      - `%d` é um placeholder para o ano (inteiro).
+      - `%.2f` é um placeholder para o `montante` (número de ponto flutuante com duas casas decimais), o que é essencial para valores monetários.
+      - `\t` é usado para adicionar uma tabulação, ajudando a alinhar as colunas "Ano" e "Saldo na conta".
+5.  **Entrada de Dados:** O método `main` solicita ao usuário o valor principal, a taxa de juros e o número de anos usando `Scanner`.
+6.  **Validação:** Adicionada uma validação básica para garantir que as entradas sejam números lógicos (principal e anos positivos, taxa de juros não negativa).
+
+Para compilar e executar este programa, você salvaria o código como `Q7.java`, compilaria com `javac Q7.java` e executaria com `java Q7` no terminal.
+
+Agora, vamos para a Q8.

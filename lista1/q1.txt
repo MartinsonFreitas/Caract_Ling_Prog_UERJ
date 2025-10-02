@@ -1,0 +1,125 @@
+Entendido\! Começarei pela Q1.
+
+**Q1. O perfil de uma pessoa pode ser determinado a partir da sua data de nascimento, conforme exemplificado a seguir. Crie um programa em Java que dada uma data de nascimento (3 inteiros positivos) e retorne o perfil correspondente.**
+
+**Exemplo:**
+13/06/1970
+1306+1970=3276
+32+76=108
+10+8=18 (o exemplo aqui parou em 108, mas para chegar ao perfil é preciso ir até um dígito)
+1+8=9
+9 (este seria o número final se o exemplo estivesse completo)
+
+**Tabela de Perfil:**
+| Perfil       | Número |
+| :----------- | :----- |
+| Tímido       | 0      |
+| Sonhador     | 1      |
+| Paquerador   | 2      |
+| Atraente     | 3      |
+| Irresistível | 4      |
+
+Vamos considerar que o exemplo de cálculo `1085` e `105 21 3` sugere uma redução do número até um único dígito, e então o perfil é consultado na tabela. Vou assumir que o processo é somar o dia e o mês, depois somar o ano, e então reduzir o resultado a um único dígito somando os dígitos do número repetidamente até obter um número de 0 a 4 (considerando a tabela dada que vai de 0 a 4).
+
+Aqui está o código Java para a Q1:
+
+``` java
+import java.util.Scanner;
+
+public class Q1 {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Bem-vindo ao calculador de perfil!");
+        System.out.println("Por favor, digite a data de nascimento (dia mês ano):");
+
+        System.out.print("Dia: ");
+        int dia = scanner.nextInt();
+
+        System.out.print("Mês: ");
+        int mes = scanner.nextInt();
+
+        System.out.print("Ano: ");
+        int ano = scanner.nextInt();
+
+        // Validação básica para inteiros positivos
+        if (dia <= 0 || mes <= 0 || ano <= 0) {
+            System.out.println("Por favor, insira apenas inteiros positivos para a data.");
+            scanner.close();
+            return;
+        }
+
+        // Concatena dia e mês, depois soma com o ano.
+        // O exemplo "1306+1970=3276" sugere concatenar dia e mês antes de somar.
+        // Vamos usar a lógica do exemplo: (dia * 100 + mes) + ano
+        int numeroInicial = (dia * 100 + mes) + ano;
+
+        // Reduz o número a um único dígito (ou até um número menor que 5, para mapear na tabela)
+        int numeroReduzido = reduzirParaUmDigito(numeroInicial);
+        
+        // Mapeia o número reduzido para o perfil (assumindo que o perfil é o resto da divisão por 5)
+        int perfilNumero = numeroReduzido % 5; // Para mapear nos números 0 a 4 da tabela
+
+        String perfil = "";
+        switch (perfilNumero) {
+            case 0:
+                perfil = "Tímido";
+                break;
+            case 1:
+                perfil = "Sonhador";
+                break;
+            case 2:
+                perfil = "Paquerador";
+                break;
+            case 3:
+                perfil = "Atraente";
+                break;
+            case 4:
+                perfil = "Irresistível";
+                break;
+            default:
+                perfil = "Desconhecido"; // Caso algo inesperado aconteça
+                break;
+        }
+
+        System.out.println("\nProcessando a data de nascimento " + dia + "/" + mes + "/" + ano + "...");
+        System.out.println("Cálculo inicial: (" + dia + "*" + 100 + " + " + mes + ") + " + ano + " = " + numeroInicial);
+        System.out.println("Número reduzido para um dígito: " + numeroReduzido);
+        System.out.println("Número do perfil (módulo 5): " + perfilNumero);
+        System.out.println("O perfil correspondente é: " + perfil);
+
+        scanner.close();
+    }
+
+    /**
+     * Reduz um número inteiro a um único dígito somando seus dígitos repetidamente.
+     * Ex: 3276 -> 3+2+7+6 = 18 -> 1+8 = 9
+     */
+    public static int reduzirParaUmDigito(int numero) {
+        while (numero >= 10) {
+            int somaDosDigitos = 0;
+            String numStr = String.valueOf(numero);
+            for (char digitoChar : numStr.toCharArray()) {
+                somaDosDigitos += Character.getNumericValue(digitoChar);
+            }
+            numero = somaDosDigitos;
+        }
+        return numero;
+    }
+}
+
+```
+
+**Comentários sobre a lógica e o código:**
+
+1.  **Entrada de Dados:** Usa `Scanner` para ler o dia, mês e ano como inteiros.
+2.  **Cálculo Inicial:** Segue o exemplo `1306+1970=3276`, interpretando `1306` como a concatenação de dia e mês (`13 * 100 + 6`). Este resultado é somado ao ano.
+3.  **Redução para um Dígito (`reduzirParaUmDigito`):** Esta função é crucial. Ela pega o número resultante do cálculo inicial e, se ele for maior ou igual a 10, soma seus dígitos. Esse processo se repete até que o número se torne um único dígito (ex: 3276 -\> 18 -\> 9). O exemplo fornecido na lista `1085` e `105 21 3` é um pouco ambíguo sobre a finalidade exata dessa redução e como ela se relaciona com a tabela. Eu assumi que o objetivo final é chegar a um único dígito, e então usar esse dígito ou uma transformação dele para consultar a tabela.
+4.  **Mapeamento para o Perfil:** Após a redução para um único dígito, o número resultante (`numeroReduzido`) é usado para determinar o perfil. Como a tabela de perfis vai de 0 a 4, usei o operador módulo (`% 5`) no `numeroReduzido` para garantir que o resultado esteja dentro dessa faixa (0, 1, 2, 3, 4). Isso permite que qualquer número de 0 a 9 reduzido caia em uma das categorias de perfil.
+5.  **Saída:** Imprime o perfil correspondente.
+6.  **Validação:** Adicionada uma validação básica para garantir que dia, mês e ano sejam inteiros positivos.
+
+Para compilar e executar este programa, você salvaria o código como `Q1.java`, compilaria com `javac Q1.java` e executaria com `java Q1` no terminal.
+
+Agora, vamos para a Q2.
