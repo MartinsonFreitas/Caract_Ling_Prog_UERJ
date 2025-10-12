@@ -1,4 +1,4 @@
-Ótimo\! Chegamos à última questão da sua lista.
+/*
 
 **Q10. Crie um programa que permita realizar operações entre matrizes. O programa deve exibir um menu de opções para as seguintes funcionalidades:**  
 **a) Criar matriz de n linhas e m colunas, recebe dois inteiros n e me retorna uma lista de listas**  
@@ -14,7 +14,7 @@ Esta é uma questão abrangente que exige múltiplas funções e um menu interat
 
 Aqui está o código Java para a Q10:
 
-``` java
+*/
 import java.util.Scanner;
 import java.util.ArrayList; // Para usar ArrayList como "lista de listas"
 import java.text.DecimalFormat; // Para formatar a saída de doubles
