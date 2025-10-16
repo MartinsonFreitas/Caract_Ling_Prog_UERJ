@@ -1,0 +1,25 @@
+/*
+4a questão(2 pontos): Considere que, durante o ano de 2013, você desenvolveu uma interface denominada EnginePlus2013 que passou a ser implementada por mais de 200 programadores em aplicativos por eles desenvolvidos para a corporação em que você trabalha.
+
+       Public interface EnginePlus2013{
+   	void executeAction_01(int i, double x);
+ 	 int executeAction_02(String s);
+  	 …
+  	 float executeAction_10 (String s1, String s2);
+        }
+
+Posteriormente, em janeiro de 2014, você adicionou mais dois métodos à sua interface, a saber:
+
+	 String[] executeAction_11 (Integer i1, Float f2);
+	 Long executeAction_12 (Boolean b1, Character x);
+
+Dos 200 programadores que implementaram EnginePlus2013, 20 precisam adicionar de imediato aos seus programas que implementam EnginePlus2013, os métodos executeAction_11, executeAction_12. Os outros 180 programadores não precisarão jamais fazer uso destes métodos nos programas que já implementam EnginePlus2013. No entanto, sabe-se que quase todos precisarão incluir os métodos executeAction_11, executeAction_12 nos novos programas desenvolvidos a partir de janeiro de 2014. Qual a solução que você daria, em Java, para evitar que os 180 programadores alterem os programas que implementam EnginePlus2013? Escreva o código correspondente em Java.
+*/
+
+// Solução: criar uma nova interface que seja uma extensão da interface anterior.
+// Os antigos programas poderiam usar a interface antiga e,os novos, a extensão.
+public interface EnginePlus2014 extends EnginePlus2013 {
+
+	 String[] executeAction_11 (Integer i1, Float f2);
+	 Long executeAction_12 (Boolean b1, Character x);
+}

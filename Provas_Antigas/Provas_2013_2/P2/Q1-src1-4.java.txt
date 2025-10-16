@@ -1,0 +1,101 @@
+﻿//http://www.eng.uerj.br/~fariasol/disciplinas/Caracteristicas_das_LPs/java/javacode/programas-exemplos-em-java/Bugs-2015-02/clp-2013-02-p1/gab-2013-02-p1/q1/
+// books.java  --> solução fornecida pelo aluno Erick com pequenas alterações introduzidas pelo prof. Oscar
+import java.lang.String;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.lang.System;
+import java.io.IOException;
+
+class book implements Relatable{
+        protected String title;
+        protected String author;
+        protected String publisher;
+	protected Integer numpages; // a introdução dessa variável de instância provocará alterações nos
+// construtores e em alguns métodos...
+        book next;
+
+        book()
+        {
+                title = author = publisher = " ";
+                numpages = 0; //
+                next = null;
+        }
+
+        book(book other)
+        {
+                title = other.title;
+                author = other.author;
+                publisher = other.publisher;
+                numpages = other.numpages; //
+                next = null;
+        }
+
+        book(String aTitle, String anAuthor, String aPublisher, Integer iNumPages)
+        {
+                title = aTitle;
+                author = anAuthor;
+                publisher = aPublisher;
+                numpages = iNumPages; //
+                next = null;
+        }
+
+        void getBook()
+        {
+            try {
+		BufferedReader d =
+			       new BufferedReader(new InputStreamReader(System.in));
+//DataInputStream dis = new DataInputStream(System.in);
+                System.out.print("Enter title          : ");
+                System.out.flush();
+                title = d.readLine();
+                if (title.equals("done"))
+                        return;
+                System.out.print("Enter author         : ");
+                System.out.flush();
+                author = d.readLine();
+                System.out.print("Enter publisher      : ");
+                System.out.flush();
+                publisher = d.readLine();
+                System.out.print("Enter number of pages: ");//
+                System.out.flush();        //
+                numpages = Integer.parseInt(d.readLine()); //
+		next = null;
+            } catch (IOException ioe)
+              {
+                System.out.println(ioe.toString());
+                System.out.println("Unable to get the book data.");
+                return;
+              }
+        }
+
+        void showBook()
+        {
+                System.out.println("Title    : " + title);
+                System.out.println("Author   : " + author);
+                System.out.println("Publisher: " + publisher);
+                System.out.println("Pages    : " + numpages); //
+        }
+
+        // accessor
+        String getTitle() { return title; }
+        String getAuthor() { return author; }
+        String getPublisher() { return publisher; }
+        Integer getNumPages() { return numpages; } //
+
+        // mutator
+        void setTitle(String aTitle) { title = aTitle; }
+        void setAuthor(String anAuthor) { author = anAuthor; }
+        void setPublisher(String aPublisher) { publisher = aPublisher; }
+        void setNumPages(Integer iNumPages) { numpages = iNumPages; } //
+
+
+        public int isLargerThan(Relatable other) {
+        book otherBook = (book)other;
+        if (this.numpages < otherBook.numpages)
+            return -1; // System.out.println(otherBook.title + " is bigger than " + this.title);
+        else if (this.numpages > otherBook.numpages)
+            return 1;  // System.out.println(this.title + " is bigger than " + otherBook.title);
+        else
+            return 0;  // System.out.println("objects are equal");
+	    }
+}

@@ -1,0 +1,22 @@
+class Estacionamento { 
+	private int vagas; 	 	 
+	public Estacionamento (int vagas) {  
+		if (vagas < 0) 
+			vagas = 0; 
+			this.vagas = vagas; 
+	 } 
+	 
+	public synchronized void entra () { // enter parking garage 	 
+		while (vagas == 0) { 			 
+			try { 		 
+				wait(); 
+			} catch (InterruptedException e) {} 
+		 } 		 
+		vagas--; 
+	 } 
+	 
+	public synchronized void sai () { // leave parking garage 		 
+		vagas++; 
+		notify(); 
+		} 
+}

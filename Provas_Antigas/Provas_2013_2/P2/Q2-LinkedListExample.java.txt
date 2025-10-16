@@ -1,0 +1,52 @@
+//LinkedListExample --> código produzido pelo aluno Renan 
+import java.io.*;
+
+public class LinkedListExample { 
+	private static boolean TEST_QUESTION_2_IV = false; // alterado prof. Oscar
+
+	public static void main(String[] args) {
+	LinkedList myStringList = new LinkedList(5);
+	LinkedList myIntegerList = new LinkedList(5);
+	Node myStringNode, pqString;
+	Node myIntegerNode, pqInteger;
+	String myStringAux;
+	System.out.println("Entre, alternadamente, com os valores String e " +
+	"Integer que irão integrar as listas, um valor em cada linha." +
+	" Tecle done quando terminar de entrar com os valores");
+
+	try {
+	if (TEST_QUESTION_2_IV)
+	myIntegerList.pickUpFIFOElement(); //Cai em uma exception pois tenta retirar de um item não adicionado
+
+	BufferedReader d = new BufferedReader(new InputStreamReader(System.in));
+	//DataInputStream dis = new DataInputStream (System.in);
+
+	while (true) {
+		myStringAux = d.readLine();
+		if (myStringAux.equals("done"))
+		break;
+		myStringNode = new Node(myStringAux);
+		myStringList.InsertElement(myStringNode);
+		myStringAux = d.readLine();
+		if (myStringAux.equals("done"))
+		break;
+		myIntegerNode = new Node(Integer.parseInt(myStringAux));
+		myIntegerList.InsertElement(myIntegerNode);
+	}
+	// Imprime a LinkedList de Strings.
+	System.out.println("Output da LinkedList de Strings");
+	myStringList.printLinkedList();
+	// Imprime a LinkedList de Integers.
+	System.out.println("Output da LinkedList de Integers");
+	myIntegerList.printLinkedList();
+	} 
+	catch (LinkedListException lioe) {
+		System.out.println(lioe.toString());
+		System.out.println("Exception propria criada");
+	} 
+	catch (Exception ioe) {
+		System.out.println(ioe.toString());
+		System.out.println("Unable to build the Lists.");
+	}
+	}
+}

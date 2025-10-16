@@ -1,0 +1,266 @@
+﻿
+// solução do aluno Flávio Henrique Schmidt para as questões 1, 2 e 5.
+
+// solução da questão 1
+
+public class Navio implements Relatable {
+	
+	private Coordenada coordenada;
+	private int profundidade;
+	private int rumo;
+	private int velocidade;
+	private int calado;
+	private int peso;
+	private String nome;
+	private String nacionalidade;
+	
+	Navio(int latitude, int longitude, int rumo, int velocidade, int calado,
+		  int peso, String nome, String nacionalidade){
+		System.out.println("Construindo um navio...");
+		Coordenada coordenada = new Coordenada();
+		coordenada.setLatitude(latitude);
+		coordenada.setLongitude(longitude);
+		this.coordenada = coordenada;
+		Ecobatimetro ecobatimetro = this.new Ecobatimetro();
+		int profundidade = ecobatimetro.getDepth(this.coordenada.getLatitude(), this.coordenada.getLongitude());
+		this.profundidade = profundidade;
+		this.rumo = rumo;
+		this.velocidade = velocidade;
+		this.calado = calado;
+		this.peso = peso;
+		this.nome = nome;
+		this.nacionalidade = nacionalidade;
+	}
+	
+	public int obtemRumo() {
+		return rumo;
+	}
+	public void alterarRumo(int rumo) {
+		this.rumo = rumo;
+	}
+	public int obtemVelocidade() {
+		return velocidade;
+	}
+	public void alterarVelocidade(int velocidade) {
+		this.velocidade = velocidade;
+	}
+	public int obtemProfundidade() {
+		Ecobatimetro ecobatimetro = this.new Ecobatim// solução da questão 5etro();
+		int profundidade = ecobatimetro.getDepth(this.coordenada.getLatitude(), this.coordenada.getLongitude());
+		return profundidade;
+	}
+	public Coordenada obtemLatLong() {
+		return coordenada;
+	}
+
+	public void mostraCaracteristicas() {
+		System.out.println("Características do navio: \n\n" +
+				           "Latitude: "+coordenada.getLatitude()+
+				           "\nLongitude: "+coordenada.getLongitude()+
+				           "\nProfundidade: "+obtemProfundidade()+
+				           "\nRumo: "+obtemRumo()+
+				           "\nVelocidade: "+obtemVelocidade()+
+				           "\nCalado: "+this.calado+
+				           "\nPeso: "+this.peso+
+				           "\nNome: "+this.nome+
+				           "\nNacionalidade: "+this.nacionalidade);
+	}
+	
+
+
+	public int isLargerThan(Relatable outro) {
+        Navio outroNavio = (Navio)outro;
+        if (this.peso < outroNavio.peso)
+                return -1;
+        else if (this.peso > outroNavio.peso)
+                return 1;
+        else
+                return 0;               
+    }
+// fim da questão 5
+
+// solução da questão 2
+	
+	private class Ecobatimetro{
+		
+		private String modelo;
+		private String data_de_afericao;
+		
+		public String getModelo() {
+			return modelo;
+		}
+		public void setModelo(String modelo) {
+			this.modelo = modelo;
+		}
+		public String getData_de_afericao() {
+			return data_de_afericao;
+		}
+		public void setData_de_afericao(String data_de_afericao) {
+			this.data_de_afericao = data_de_afericao;
+		}
+		
+		private int getDepth(int lat, int longi){
+			DigitalMap dm = new DigitalMap();
+			return dm.getDepth(lat, longi);
+			
+		}
+	}
+// fim da questão 2	
+
+}
+
+// fim da questão 1
+
+
+//solução do aluno David Prudente Viana para a questão 4
+
+i) O código representa uma classe genérica. Para fazer referência a essa classe genérica de
+dentro do seu próprio código, você deve executar uma chamada de tipo genérico, que
+substitui T com algum valor concreto como Integer. Pode haver momentos em que você vai
+querer restringir os tipos de tipos que têm permissão para ser passado para um parâmetro de
+tipo. Por exemplo, um método que opera sobre números podem apenas querer aceitar
+instâncias de número ou de suas subclasses. Isto é o que parâmetros de tipo limitada usam. 
+Para declarar um parâmetro do tipo limitada, lista o nome do parâmetro tipo, seguida pela
+palavra-chave extends, seguida de seu limite superior, que neste exemplo é Number. Note
+que, neste contexto, extends é usado em um sentido geral para significar tanto "estende"
+(como em classes) ou "implements" (como em interfaces).
+ii)
+public class Box<T extends Number> {
+    private T t;          
+    public void add(T t) {
+        this.t = t;
+    }
+    public T get() {
+        return t;
+    }
+    public static void main(String[] args) {
+        Box<Integer> integerBox = new Box<Integer>();
+        integerBox.add(new Integer(10));
+    }
+
+// solução do aluno Flávio Henrique Schmidt para a questão 3
+
+// incluir o códig da classe Navio ...
+
+public class NavioTanque extends Navio {
+	
+	private int capacidade;
+	private int cargaCorrente;
+	public enum Combustivel { oleo_cru,gasolina,alcool,querosene}
+	private Combustivel tipoDeCarga;
+	
+	public int obtemCapacidade() {
+		return capacidade;
+	}
+
+	public void setCapacidade(int capacidade) {
+		this.capacidade = capacidade;
+	}
+
+	public int obtemCargaCorrente() {
+		return cargaCorrente;
+	}
+
+	public void setCargaCorrente(int cargaCorrente) {
+		this.cargaCorrente = cargaCorrente;
+	}
+
+	public Combustivel getTipoDeCarga() {
+		return tipoDeCarga;
+	}
+
+	public void setTipoDeCarga(Combustivel tipoDeCarga) {
+		this.tipoDeCarga = tipoDeCarga;
+	}
+
+	NavioTanque(int latitude, int longitude, int rumo, int velocidade,
+					int calado, int peso, String nome, String nacionalidade, int capacidade,
+					int cargaCorrente,Combustivel combustivel) {
+		super(latitude, longitude, rumo, velocidade, calado, peso, nome, nacionalidade);
+		this.capacidade = capacidade;
+		this.cargaCorrente = cargaCorrente;
+		this.tipoDeCarga = combustivel;
+		
+	}
+	
+	public void mostraCaracteristicas() {
+		super.mostraCaracteristicas();
+		System.out.println("\nCapacidade: "+obtemCapacidade()+
+						   "\nCarga Corrente: "+obtemCargaCorrente()+
+						   "\nTipo de Carga: "+getTipoDeCarga());
+	}
+
+}
+
+
+public class NavioGraneleiro extends Navio {
+	
+	private int capacidade;
+	private int cargaCorrente;
+	public enum Grao { trigo, aveia, cevada, quinua, amaranto}
+	private Grao tipoDeCarga;
+	
+	public int obtemCapacidade() {
+		return capacidade;
+	}
+
+	public void setCapacidade(int capacidade) {
+		this.capacidade = capacidade;
+	}
+
+	public int obtemCargaCorrente() {
+		return cargaCorrente;
+	}
+
+	public void setCargaCorrente(int cargaCorrente) {
+		this.cargaCorrente = cargaCorrente;
+	}
+
+	public Grao getTipoDeCarga() {
+		return tipoDeCarga;
+	}
+
+	public void setTipoDeCarga(Grao tipoDeCarga) {
+		this.tipoDeCarga = tipoDeCarga;
+	}
+
+	NavioGraneleiro(int latitude, int longitude, int rumo, int velocidade,
+					int calado, int peso, String nome, String nacionalidade, int capacidade,
+					int cargaCorrente,Grao grao) {
+		super(latitude, longitude, rumo, velocidade, calado, peso, nome, nacionalidade);
+		this.capacidade = capacidade;
+		this.cargaCorrente = cargaCorrente;
+		this.tipoDeCarga = grao;
+		
+		
+	}
+	public void mostraCaracteristicas() {
+		super.mostraCaracteristicas();
+		System.out.println("\nCapacidade: "+obtemCapacidade()+
+						   "\nCarga Corrente: "+obtemCargaCorrente()+
+						   "\nTipo de Carga: "+getTipoDeCarga());
+	}
+
+}
+
+public class ExemploUsoPolimorfismo {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		Navio navio = new Navio(10, 70, 13, 32, 22, 900, "Navio Torpedo", "Brasileiro");
+		navio.mostraCaracteristicas();
+		NavioGraneleiro navioGraneleiro = new NavioGraneleiro(10, 70, 13, 32, 22, 900, 
+											"Navio Torpedo", "Brasileiro",56, 78,NavioGraneleiro.Grao.cevada);
+		navioGraneleiro.mostraCaracteristicas();
+		NavioTanque navioTanque = new NavioTanque(10, 70, 13, 32, 22, 900, 
+				"Navio Torpedo", "Brasileiro",56, 78,NavioTanque.Combustivel.gasolina);
+		navioTanque.mostraCaracteristicas();
+		
+	}
+
+}
+
+
+

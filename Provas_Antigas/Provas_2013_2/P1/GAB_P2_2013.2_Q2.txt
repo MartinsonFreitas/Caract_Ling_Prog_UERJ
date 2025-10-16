@@ -1,0 +1,23 @@
+class Carro extends Thread {
+	private Estacionamento p;
+	public Carro(String name, Estacionamento p) {
+		super(name);
+		this.p = p;
+		start();
+	}
+
+	public void run() {
+		while (true) {
+			try {
+				sleep((int)(Math.random() * 10000)); // percorre as ruas, antes de estacionar
+			} catch (InterruptedException e) {}
+			p.entra();
+			System.out.println(getName()+": entrou");
+			try {
+				sleep((int)(Math.random() * 20000)); // permanece dentro do estacionamento
+			} catch (InterruptedException e) {}
+			p.sai();
+			System.out.println(getName()+": saiu");
+			}
+		}
+}

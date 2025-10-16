@@ -1,0 +1,20 @@
+// LinkedListException --> código produzido pelo aluno Renan
+
+public class LinkedListException extends Exception {
+	public LinkedListException() {
+		super();
+	}
+
+	public LinkedListException(String message) {
+		super(message);
+	}
+
+	public LinkedListException(String message, Throwable cause)
+	{
+		super(message, cause);
+	}
+
+	public LinkedListException(Throwable cause) {
+		super(cause);
+	}
+}

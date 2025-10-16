@@ -1,0 +1,13 @@
+// código original do aluno Renan com comentários incluídos pelo prof. Oscar
+public class AlunoExample {
+
+public static void main(String[] args) throws CloneNotSupportedException {
+  Aluno renan = new Aluno("2008.2.04357.11", "Renan Prata", new Pessoa("Marina"));
+  Aluno clone_renan = renan.clone();
+  clone_renan.setNamorada(new Pessoa("Jasmin"));
+//  System.out.println("A namorada do original é " + renan.getNamorada().getNome() + " e do clone " +
+//  renan.setNamorada(new Pessoa("Carol")));
+  System.out.println("A namorada do renan original é "+ renan.getNamorada().getNome() +" e a do clone é " +
+  clone_renan.getNamorada().getNome());
+}
+}

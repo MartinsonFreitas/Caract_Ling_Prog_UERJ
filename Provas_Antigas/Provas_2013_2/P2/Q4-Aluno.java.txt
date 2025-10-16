@@ -1,0 +1,39 @@
+
+public class Aluno implements Cloneable {
+ declaração das variáveisde instância;
+	private String matricula;
+	private String nome;
+	private Pessoa namorada;
+
+ construtor da classe aluno
+public Aluno(String matr, String nome, Pessoa namorada) {
+	matricula = matr;
+	this.nome = nome;
+	this.namorada = namorada;
+}
+
+public void setNamorada(Pessoa namorada) {
+	this.namorada = namorada;
+}
+
+public Pessoa getNamorada() {
+	return namorada;
+}
+
+public String getNome() {
+	return nome;
+}
+
+public void setNome(String nome) {
+	this.nome = nome;
+}
+
+@Override
+public Aluno clone() throws CloneNotSupportedException {
+	Aluno a;
+
+	a = (Aluno) super.clone();
+	a.namorada = (Pessoa) namorada.clone();  comando incluido pelo prof. Oscar
+        return a;
+}
+}

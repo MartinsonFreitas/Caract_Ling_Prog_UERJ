@@ -1,0 +1,15 @@
+public class TesteRelatable {
+
+public static void main(String args[])
+        {
+                book firstBook  = new book(Iliada,Homero,Penguim Books,1028);
+                book secondBook = new book(Odisseia,Homero,Penguim Books,2127);
+
+		if (firstBook.isLargerThan(secondBook) == -1) 
+                    System.out.println(secondBook.title +  is larger than  + firstBook.title);
+                else if (firstBook.isLargerThan(secondBook) == 1)
+                    System.out.println(firstBook +  is larger than  + secondBook.title);
+                else 
+                    System.out.println(objects are equal);		
+	}
+}

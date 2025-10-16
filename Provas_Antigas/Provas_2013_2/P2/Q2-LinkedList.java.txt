@@ -1,0 +1,63 @@
+//Classe LinkedList --> código produzido pelo aluno Renan 
+
+public class LinkedList {
+	public Node head;
+	private int capacity; //capacidade 
+	private int numberOfNodes = 0; //numero de nodos da lista encadeada --> alterado prof. Oscar
+
+	public LinkedList(int capacity) {
+		this.capacity = capacity;
+		head = new Node();
+		head.link = head;
+	}
+
+	public void InsertElement(Node avail) throws LinkedListException {
+		// insert new element after the first node.
+		if (numberOfNodes >= capacity) { //Questao 2.ii (teste para verficar se ja chegou a capacidade
+			throw new LinkedListException("Sua capacidade foi esgotada");
+		}
+		avail.link = head.link;
+		head.link = avail;
+		numberOfNodes++;
+	}
+
+	public Object pickUpFIFOElement() throws LinkedListException { //questao 2.ii
+		// recupera o primeiro elemento que foi inserido na lista.
+		if (numberOfNodes == 0) {
+			throw new LinkedListException("A lista está vazia");
+		}
+		Node aux = head.link;
+		while (aux.link != head) {
+			aux = aux.link;
+		}
+		return aux.info;
+	}
+
+	public Object PickUpLIFOElement() throws LinkedListException { //questao 2.ii
+		// recupera o último elemento que foi inserido na lista.
+		if (numberOfNodes == 0) {
+			throw new LinkedListException("A lista está vazia");
+		}
+		Node aux = head.link;
+		head.link = aux.link;
+		return aux.info;
+	}
+
+	public void printLinkedList() {
+		// imprime todos os elementos da lista - questao 2.iii
+		Node pqObject = head;
+		Node myNode = pqObject;
+		while (pqObject.link != myNode) {
+			pqObject = pqObject.link;
+			System.out.println(pqObject.info);
+		}
+	}
+
+	public int getCapacity() {
+		return capacity;
+	}
+
+	public void setCapacity(int capacity) {
+		this.capacity = capacity;
+	}
+}

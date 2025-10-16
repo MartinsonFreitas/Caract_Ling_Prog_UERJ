@@ -1,0 +1,43 @@
+package linklist;
+
+/**
+ *
+ * @author Thiago Vianna
+ */
+import java.util.LinkedList;
+
+public class LinkList {
+
+    public static void main(String[] args) {
+
+        try {
+            LinkedList<Integer> li = new LinkedList<>();
+            LinkedList<String> ls = new LinkedList<>();
+
+            for (int i = 0; i < 3; i++)
+                li.add(i, i);
+
+            ls.add(0, "AAA");
+            ls.add(1, "BBB");
+            ls.add(2, "CCC");         
+
+            LinkedList<Object> lall = new LinkedList<>();
+
+            lall.addAll(li);
+            lall.addAll(ls);
+
+            System.out.println("O primeiro elemento de li é " + li.getFirst());
+            System.out.println("O último elemento de li é " + li.getLast());
+            System.out.println("O primeiro elemento de ls é " + ls.getFirst());
+            System.out.println("O último elemento de ls é " + ls.getLast());
+            System.out.println("O primeiro elemento de lall é " + lall.getFirst());
+            System.out.println("O último elemento de lall é " + lall.getLast());
+        
+        } catch (NullPointerException e1) {
+            System.err.println("Objeto inexistente.");
+        
+        } catch (IndexOutOfBoundsException e2) {
+            System.err.println("Acesso fora da lista.");
+        }
+    }
+}

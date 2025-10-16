@@ -1,0 +1,16 @@
+// Classe Node
+
+public class Node {
+	Object info;
+	Node link;
+
+	public Node() {
+		this.info = null;
+		link = null;
+	}
+
+	public Node(Object info) {
+		this.info = info;
+		link = null;
+	}
+}
