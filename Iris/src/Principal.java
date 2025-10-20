@@ -5,7 +5,7 @@ import java.io.IOException;
 
 public class Principal {
 	public static void main(String[] args) {
-		String meuArquivo = "C:/Users/ADM/Downloads/Giomar/Estruturas/iris.csv"; 
+		String meuArquivo = "/home/martinson/dev/Caract_Ling_Prog/Iris/src/iris.csv"; 
 		
 		//Criamos um objeto File
 		File arquivo = new File(meuArquivo);

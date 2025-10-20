@@ -22,8 +22,8 @@ public class Iris {
 	
 	@Override
 	public String toString() {
-		return "Iris [comprimento_sepala=" + comprimento_sepala + ", largura_sepala=" + largura_sepala
-				+ ", comprimento_petala=" + comprimento_petala + ", largura_pelata=" + largura_pelata + ", tipo=" + tipo
+		return "Iris [comprimento_sepala = " + comprimento_sepala + ", largura_sepala = " + largura_sepala
+				+ ", comprimento_petala = " + comprimento_petala + ", largura_pelata = " + largura_pelata + ", tipo = " + tipo
 				+ "]";
 	}
 	
